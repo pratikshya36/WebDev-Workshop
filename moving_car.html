@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ANIMATION IN CANVAS
+        </title>
+    </head>
+    <body>
+<canvas id="icanvas" ></canvas>
+<script>
+
+var imgTag = new Image();
+var canvas = document.getElementById('icanvas');
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+var ctx = canvas.getContext("2d");
+var x = 300;var x1,y1;
+var y = 600;
+var no=3;var i;
+imgTag.src = "car.jpg";
+imgTag.onload = animate;
+var connections=[];
+
+	
+
+  // load image
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);  // clear canvas
+  ctx.drawImage(imgTag, x, y);                       // draw image at current position
+  y -= 2;
+   canvas.addEventListener("keypress", update);
+    if (y>=-200)
+	{
+ requestAnimationFrame(animate) ;
+
+	}
+    else
+    {
+        y=600;
+         requestAnimationFrame(animate); 
+	}
+	}
+	function update(event)
+{
+   
+  
+    if (event.keyCode == 37)
+    {
+		if((x>=0)&&(x<=canvas.width))
+        x =x+10; 
+    }
+    if (event.keyCode == 39)
+    {
+		if((x>=0)&&(x<=canvas.width))
+        x =x-10; 
+    }
+    render();
+}
+
+function render()
+{
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.drawImage(playerimage, x, y, width, height);
+}
+	
+function connection(x,y)
+{
+	this.x=x;
+	this.y=y;
+	this.show=function()
+				{
+					ctx.fillStyle="grey";
+					ctx.fillRect(x,y,20,20);
+					
+}}
+</script>
+    </body>
+    
+</html>
