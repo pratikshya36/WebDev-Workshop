@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Game</title>
+</head>
+<body>
+<style type="text/css">
+	* { padding: 5px; margin: 0; }
+	canvas { background: #252977; display: block; margin: 0 auto; 
+		border:5px solid gray;}
+</style>
+<canvas id="mycanvas" width="500px" height="600px"></canvas>
+<script>
+var canvas=document.getElementById("mycanvas");
+var ctx=canvas.getContext("2d");
+var imgTag = new Image();
+var ctx = canvas.getContext("2d");
+var carx = 40;
+var cary = 600;
+imgTag.src = "car.jpg";
+imgTag.onload = draw;
+function background()
+{
+ctx.beginPath();
+ctx.rect(155,0,15,600);
+ctx.fillStyle="#DF210E";
+ctx.fill();
+ctx.rect(325,0,15,600);
+ctx.fill();
+ctx.closePath();
+}
+function car()
+{
+  ctx.drawImage(imgTag, carx, cary);                       
+  if (cary>=-200)
+   {
+    cary-=3;
+   }
+  else
+   {
+    cary=600;
+   }
+}
+function draw()
+{
+	ctx.clearRect(0, 0, canvas.width, canvas.height); 
+	background();
+	car();
+	requestAnimationFrame(draw);
+}
+function update(event)
+  {
+    if (event.keyCode == 37)
+    {
+		if((carx-150>=0)&&(carx<=canvas.width-imgTag.width))
+        carx-=150; 
+    }
+    if (event.keyCode == 39)
+    {
+		if((carx>=0)&&(carx+150<=canvas.width-imgTag.width))
+        carx +=150; 
+    }
+	}
+document.addEventListener("keydown", update);
+</script>
+</body>
+</html>
