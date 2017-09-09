@@ -15,7 +15,8 @@ var canvas=document.getElementById("mycanvas");
 var ctx=canvas.getContext("2d");
 var imgTag = new Image();
 var ctx = canvas.getContext("2d");
-var carx = 40;
+var i=20;
+var carx = 30;
 var cary = 600;
 imgTag.src = "car.jpg";
 imgTag.onload = draw;
@@ -34,7 +35,8 @@ function car()
   ctx.drawImage(imgTag, carx, cary);                       
   if (cary>=-200)
    {
-    cary-=3;
+   	if(cary>265)
+    {cary-=i;}
    }
   else
    {
@@ -46,6 +48,7 @@ function draw()
 	ctx.clearRect(0, 0, canvas.width, canvas.height); 
 	background();
 	car();
+	i-=0.1;
 	requestAnimationFrame(draw);
 }
 function update(event)
@@ -53,12 +56,12 @@ function update(event)
     if (event.keyCode == 37)
     {
 		if((carx-150>=0)&&(carx<=canvas.width-imgTag.width))
-        carx-=150; 
+        carx-=170; 
     }
     if (event.keyCode == 39)
     {
 		if((carx>=0)&&(carx+150<=canvas.width-imgTag.width))
-        carx +=150; 
+        carx +=170; 
     }
 	}
 document.addEventListener("keydown", update);
