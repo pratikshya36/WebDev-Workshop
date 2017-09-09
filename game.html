@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Game</title>
+</head>
+<body>
+<style type="text/css">
+	* { padding: 5px; margin: 0; }
+	canvas { background: #252977; display: block; margin: 0 auto; 
+		border:5px solid gray;}
+</style>
+<canvas id="mycanvas" width="500px" height="600px"></canvas>
+<script>
+var canvas=document.getElementById("mycanvas");
+var ctx=canvas.getContext("2d");
+function background()
+{
+ctx.beginPath();
+ctx.rect(155,0,15,600);
+ctx.fillStyle="#DF210E";
+ctx.fill();
+ctx.rect(325,0,15,600);
+ctx.fill();
+ctx.closePath();
+}
+function draw()
+{background();
+	requestAnimationFrame(draw);
+}
+draw();
+</script>
+</body>
+</html>
