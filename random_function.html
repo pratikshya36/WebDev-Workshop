@@ -1,0 +1,124 @@
+<html>
+<head>
+	<title>Random generation</title>
+	<style type="text/css">
+	body 
+	{
+	 padding: 5px; 
+	 margin: 0; 
+	}
+	canvas
+	 {
+	  background: #252977; 
+	}
+</style>
+</head>
+<body>
+<canvas id = "canvas" width = "500" height = "600"></canvas>
+</body>
+<script type="text/javascript">
+  var canvas = document.getElementById("canvas");
+  var ctx = canvas.getContext("2d");
+  
+  
+
+  function obstacle (x_coordinate,y_coordinate,status,width,height,speed,oldObject) {
+  	this.x_coordinate = x_coordinate;
+  	this.y_coordinate = y_coordinate;
+  	this.width = width;
+  	this.height = height;
+  	this.status = status;
+  	this.speed = speed;
+  	this.oldObject = oldObject;
+  }
+ function background()
+  {
+  ctx.beginPath();
+  ctx.rect(155,0,15,600);
+  ctx.fillStyle="#DF210E";
+  ctx.fill();
+  ctx.rect(325,0,15,600);
+  ctx.fill();
+  ctx.closePath();
+ }
+
+    
+
+
+  var gameObstacle = new obstacle(30,0,true,80,80,7,true);
+
+  
+  var random = 0; 
+  function obstacleGeneration(){
+    if(!gameObstacle.oldObject){
+     ctx.clearRect(gameObstacle.x_coordinate,gameObstacle.y_coordinate,gameObstacle.width,gameObstacle.height);
+  	 var random = Math.round(Math.random()*2);
+     
+  	 ///alert("hi");
+  	 gameObstacle.x_coordinate = (30+170*random);
+  	 
+  	 //y_coordinate = 0;
+  	 gameObstacle.status = true;
+  	 ctx.beginPath();
+
+  	 ctx.rect(gameObstacle.x_coordinate,gameObstacle.y_coordinate,gameObstacle.width,gameObstacle.height);//drawing the game space for the game
+     ctx.fillStyle = "#00FF00";
+     ctx.fill();  
+     ctx.closePath();
+     gameObstacle.oldObject = true;
+       }
+
+    }
+  function drawObstacle(x_coordinate,y_coordinate,width,height,status){
+  	if(status){
+  	 ctx.beginPath();
+
+  	 ctx.rect(gameObstacle.x_coordinate,gameObstacle.y_coordinate,gameObstacle.width,gameObstacle.height);//drawing the game space for the game
+     ctx.fillStyle = "#00FF00";
+     ctx.fill();  
+     ctx.closePath();
+    }
+   else{
+      ctx.clearRect(gameObstacle.x_coordinate,gameObstacle.y_coordinate,gameObstacle.width,gameObstacle.height);
+    	obstacleGeneration();
+   
+    }
+
+  }
+
+  function obstacleMovement(y_coordinate,speed){
+    //ctx.clearRect(0,0,canvas.width,canvas.height);
+   // console.log(y_coordinate+speed);
+  	return y_coordinate + speed;
+
+  }
+  function gamePlay(){
+
+    	background();
+    	console.log(gameObstacle.status      +"      "+ gameObstacle.x_coordinate+"    "+gameObstacle.y_coordinate+"    "+gameObstacle.oldObject);
+      if(gameObstacle.oldObject==false){
+        alert("hi");
+      }
+         console.log(gameObstacle.y_coordinate-canvas.height);
+    	if(gameObstacle.y_coordinate>canvas.height){
+         gameObstacle.status = false;
+         gameObstacle.oldObject=false;
+         gameObstacle.y_coordinate = 0;
+         //obstacleGeneration(gameObstacle.x_coordinate,gameObstacle.y_coordinate,gameObstacle.width,gameObstacle.height,gameObstacle.status);
+
+    	}
+      ctx.clearRect(gameObstacle.x_coordinate,gameObstacle.y_coordinate,gameObstacle.width,gameObstacle.height);
+      
+      gameObstacle.y_coordinate = obstacleMovement(gameObstacle.y_coordinate,gameObstacle.speed);
+    	drawObstacle(gameObstacle.x_coordinate,gameObstacle.y_coordinate,gameObstacle.width,gameObstacle.height,gameObstacle.status);
+      
+
+    	requestAnimationFrame(gamePlay);
+    }
+    //obstacleGeneration();
+    requestAnimationFrame(gamePlay);
+
+  
+</script>
+
+</html>
