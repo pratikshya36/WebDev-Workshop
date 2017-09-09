@@ -18,6 +18,7 @@ var ctx = canvas.getContext("2d");
 var i=20;
 var carx = 30;
 var cary = 600;
+var obsX,obsY,obsW,obsH
 imgTag.src = "car.jpg";
 imgTag.onload = draw;
 function background()
@@ -43,11 +44,26 @@ function car()
     cary=600;
    }
 }
+function detect(carX,carY,carW,obsX,obsY,obsW,obsH){
+	var collide;
+	if(carY==obsY+obsH){
+		if(((carX>=obsX)&&(carX<=obsX+obsW))||((carX+carW>=obsX)&&(carX+carW<=obsX+obsW))){
+			collide=true;
+		}
+		if((obsX>=carX)&&(obsX+obsW<=carX+carW)){
+			collide=true;
+		}
+		else{
+			collide=false;
+		}
+	}
+}
 function draw()
 {
 	ctx.clearRect(0, 0, canvas.width, canvas.height); 
 	background();
 	car();
+	detect(carx,cary,100,);
 	i-=0.1;
 	requestAnimationFrame(draw);
 }
